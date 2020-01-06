@@ -28,7 +28,7 @@ Nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞�
 
 重置实例密码并重启实例，如图:
 
-![SCE](/Users/itxing/my/nginx-demo/static/SCE.png)
+![SCE](./static/SCE.png)
 
 ```
 # ssh root@ip  // 输入密码即可登录远程服务器
