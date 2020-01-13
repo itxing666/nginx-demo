@@ -49,3 +49,44 @@ cd itxing
 mkdir app backup download logs work
 ```
 
+#### 第二节、Ngnix快速搭建
+
+Niginx版本说明 [下载地址](http://nginx.org/en/download.html)
+
+- Mainline version: Mainline 是 Nginx 目前主力在做的版本，可以说是开发版
+- Stable version: 最新稳定版，生产环境上建议使用的版本
+- Legacy versions：遗留的老版本的稳定版
+
+基于yum方式安装Nginx
+
+查看一下yum是否已经存在
+
+```
+yum list | grep nginx
+```
+
+系统原来的源只支持1.1版本,版本较低
+
+我们可以自行配置yum源
+
+```
+vim /etc/yum.repos.d/nginx.repo
+```
+
+复制以下代码，修改文件
+
+```
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/7/$basearch/
+gpgcheck=0
+enabled=1
+```
+
+安装nginx
+
+```
+yum install nginx
+nginx -v
+```
+
