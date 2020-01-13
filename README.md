@@ -90,3 +90,53 @@ yum install nginx
 nginx -v
 ```
 
+#### 第三节、Ngnix配置文件
+
+查看nginx安装目录(rpm是linux的rpm包管理工具、-q代表询问模式、-l代表返回列表)
+
+```
+rpm -ql nginx
+```
+
+nginx.conf文件解读
+
+nginx.conf 文件是nginx总配置文件，在搭建服务器时经常调整的文件
+
+进入etc/nginx目录，然后用vim进行打开
+
+```
+cd /etc/nginx
+vim nginx.conf
+```
+
+以下为详细注解
+
+```
+#运行用户，默认即是nginx,可以不进行设置
+user nginx
+#nginx进程，一般设置为和cpu核数一样
+worker_processes 1;
+#错误日志存放目录
+error_log /var/log/nginx/error.log warn;
+#进程pid存放位置
+pid /var/run/nginx.pid;
+
+events {
+  worker_connections 1024; # 单个后台进程的最大并发数
+}
+http {
+  include /etc/nginx/mime.types; #文件扩展名与类型映射表
+  default_type  application/octet-stream; #默认文件类型
+  #设置日志模式
+  log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                  '$status $body_bytes_sent "$http_referer" '
+                  '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log /var/log/nginx/access.log main; #nginx访问日志存放位置
+  sendfile on; #开启高效传输模式
+  #tcp_nopush     on;    #减少网络报文段的数量
+  keepalive_timeout 65;  #保持链接的时间，也叫超时时间
+  #gzip on; #开启gzip压缩
+  include /etc/nginx/conf.d/*.conf; #包含的子配置项位置和文件
+}
+```
+
