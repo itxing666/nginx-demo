@@ -98,7 +98,7 @@ nginx -v
 rpm -ql nginx
 ```
 
-nginx.conf文件解读
+##### nginx.conf文件解读
 
 nginx.conf 文件是nginx总配置文件，在搭建服务器时经常调整的文件
 
@@ -140,3 +140,70 @@ http {
 }
 ```
 
+##### default.conf配置项讲解
+
+```
+cd conf.d
+vim default.conf
+```
+
+```
+server {
+  listen 80; #配置监听端口
+  server_name localhost; #配置域名
+  #charset koi8-r;
+  #access_log /var/log/nginx/host.access.log main;
+  loaction / {
+    root /usr/share/nginx/html; #服务默认启动目录
+    index index.html index.htm; #默认访问文件
+  }
+  #error_page 404 /404.html; #配置404页面
+  # redirect server error pages to the static page /50x.html;
+  error_page 500 502 503 504 /50x.html; #错误状态码的显示页面，配置后需要重启
+  location = /50x.html {
+    root /usr/share/nginx/html;
+  }
+  # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+  #
+  #location ~ \.php$ {
+  #    proxy_pass   http://127.0.0.1;
+  #}
+
+  # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+  #
+  #location ~ \.php$ {
+  #    root           html;
+  #    fastcgi_pass   127.0.0.1:9000;
+  #    fastcgi_index  index.php;
+  #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+  #    include        fastcgi_params;
+  #}
+
+  # deny access to .htaccess files, if Apache's document root
+  # concurs with nginx's one
+  #
+  #location ~ /\.ht {
+  #    deny  all;
+  #}
+}
+```
+
+##### 阿里云的安全组配置
+
+1. 进入阿里云控制台，并找到ECS实例。
+2. 点击实例后边的“更多”
+3. 点击“网络和安全组” ，再点击“安全组配置”，点击“配置规则”
+4. 点击右上角“添加安全组配置”
+5. 进行80端口的设置，具体设置如下图
+
+![安全组配置](./static/安全组配置.png)
+
+启动nginx
+
+```
+nginx
+```
+
+浏览http://localhost:8080/   出现以下页面表示你成功了
+
+![nginx默认页面](./static/nginx默认页面.png)
