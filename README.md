@@ -207,3 +207,70 @@ nginx
 浏览http://localhost:8080/   出现以下页面表示你成功了
 
 ![nginx默认页面](./static/nginx默认页面.png)
+
+#### 第四节、Ngnix服务启动、停止、重启
+
+首先通过终端进入服务器
+
+```
+ssh root@ip  // 输入密码即可登录远程服务器
+```
+
+##### nginx启动
+
+nginx直接启动(执行命令后没反应就是最好的反应)
+
+```
+nginx
+```
+
+ 使用systemctl命令启动
+
+```
+systemctl start nginx.service
+```
+
+查询服务运行状态
+
+```
+ps aux | grep nginx
+```
+
+##### nginx停止
+
+```
+nginx -s stop
+```
+
+```
+nginx -s quit
+```
+
+```
+killall nginx // killall 方法杀死进程
+```
+
+```
+systemctl stop nginx.service
+```
+
+##### 重启nginx
+
+```
+systemctl restart nginx.service
+```
+
+##### 重新载入配置文件
+
+在重新编写或者修改nginx的配置文件后，需要重新载入
+
+```
+nginx -s reload
+```
+
+查看端口号
+
+在默认情况下，Nginx启动后会监听80端口，从而提供HTTP访问，如果80端口已经被占用则会启动失败。我么可以使用`netstat -tlnp`命令查看端口号的占用情况
+
+#### 第五节、自定义错误页和访问设置
+
