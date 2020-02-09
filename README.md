@@ -274,3 +274,37 @@ nginx -s reload
 
 #### 第五节、自定义错误页和访问设置
 
+1.多错误指向一个页面
+
+在/etc/nginx/conf.d/default.conf
+
+![error_page](/Users/itxing/my/nginx-demo/static/error_page.png)
+
+http请求出现500 502 503 504任意一个错误的时候都会显示/50x.html
+
+2.单独为错误置顶处理方式
+
+![404](/Users/itxing/my/nginx-demo/static/404.png)
+
+在404.html中写入
+
+```
+<html>
+  <meta charset="UTF-8">
+  <body>
+    <h1>404页面没有找到!</h1>
+  </body>
+</html>
+```
+
+3.把错误码换成一个地址
+
+![404-1](/Users/itxing/my/nginx-demo/static/404-1.png)
+
+##### 简单实现访问控制
+
+有时候我们的服务器只允许特定主机访问，比如内部OA系统，或者应用的管理后台系统，更或者是某些应用接口，这时候我们就需要控制一些IP访问，我们可以直接在`location`里进行配置
+
+可以在default.conf里配置
+
+![auth](/Users/itxing/my/nginx-demo/static/auth.png)
