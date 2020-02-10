@@ -308,3 +308,18 @@ http请求出现500 502 503 504任意一个错误的时候都会显示/50x.html
 可以在default.conf里配置
 
 ![auth](/Users/itxing/my/nginx-demo/static/auth.png)
+
+#### 第六节、nginx访问权限详讲
+
+上节deny禁止访问 allow允许访问
+
+```
+location / {
+  root /usr/share/nginx/html;
+  index index.html index.html;
+  allow 233.88.240.137;
+  deny all;
+}
+```
+
+上面的配置表示只允许`233.88.240.137`进行访问，其他的IP禁止访问。但是如果我们把`deny all`指令，移动到 `allow 233.88.240.137`之前，会发生什么呢？会发现所有的IP都不允许访问了。**这说明了一个问题：就是在同一个块下的两个权限指令，先出现的设置会覆盖后出现的设置（也就是谁先触发，谁起作用）**。
